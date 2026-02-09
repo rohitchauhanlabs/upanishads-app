@@ -1,0 +1,120 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+@layer base {
+  :root {
+    --background: 40 33% 97%;
+    --foreground: 25 30% 15%;
+    --card: 40 33% 98%;
+    --card-foreground: 25 30% 15%;
+    --popover: 40 33% 98%;
+    --popover-foreground: 25 30% 15%;
+    --primary: 28 40% 35%;
+    --primary-foreground: 40 33% 97%;
+    --secondary: 100 15% 90%;
+    --secondary-foreground: 25 30% 15%;
+    --muted: 35 15% 92%;
+    --muted-foreground: 25 10% 45%;
+    --accent: 35 25% 88%;
+    --accent-foreground: 25 30% 15%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 35 15% 85%;
+    --input: 35 15% 85%;
+    --ring: 28 40% 35%;
+    --radius: 0.75rem;
+  }
+
+  * {
+    border-color: hsl(var(--border));
+  }
+
+  body {
+    @apply bg-cream-50 text-earth-900 font-sans antialiased;
+    min-height: 100vh;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-serif;
+  }
+}
+
+@layer components {
+  .page-container {
+    @apply min-h-screen flex flex-col items-center px-4 py-8 sm:px-6 lg:px-8;
+  }
+
+  .content-container {
+    @apply w-full max-w-lg mx-auto;
+  }
+
+  .card-elevated {
+    @apply bg-white/80 backdrop-blur-sm rounded-2xl shadow-sm border border-earth-100/50 p-6;
+  }
+
+  .text-gradient {
+    @apply bg-gradient-to-r from-earth-700 via-earth-500 to-earth-600 bg-clip-text text-transparent;
+  }
+}
+
+/* Smooth page transitions */
+.page-transition-enter {
+  opacity: 0;
+  transform: translateY(10px);
+}
+
+.page-transition-enter-active {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 400ms ease-out, transform 400ms ease-out;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #D4B896;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #A67C52;
+}
+
+/* Selection color */
+::selection {
+  background-color: #FFEBB3;
+  color: #4A3520;
+}
+
+/* Markdown prose styles inside the MarkdownRenderer */
+.prose-upanishads {
+  font-size: 1rem;
+  line-height: 1.75;
+  color: #4A3520;
+}
+
+/* Ensure ordered lists inside markdown render numbers, not bullets */
+.prose-upanishads ol > li {
+  list-style-type: decimal;
+  display: list-item;
+  margin-left: 1rem;
+}
+
+.prose-upanishads ol > li > span {
+  display: inline;
+}
+
+/* Override the flex bullet on ordered list items */
+.prose-upanishads ol > li::before {
+  content: none;
+}

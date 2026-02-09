@@ -1,0 +1,86 @@
+"use client";
+
+import { useRouter } from "next/navigation";
+import { motion } from "framer-motion";
+import { Button } from "@/components/ui/button";
+import { AudioPlayer } from "@/components/AudioPlayer";
+import { MarkdownRenderer } from "@/components/MarkdownRenderer";
+import { updateProgress } from "@/lib/storage";
+
+interface Layer2ClientProps {
+  content: string;
+}
+
+export function Layer2Client({ content }: Layer2ClientProps) {
+  const router = useRouter();
+
+  const handlePracticeTracker = () => {
+    router.push("/practice-tracker");
+  };
+
+  const handleFullInsight = () => {
+    updateProgress({ layer2Complete: true });
+    router.push("/insight/layer-3");
+  };
+
+  return (
+    <div className="min-h-screen bg-gradient-to-b from-cream-50 to-cream-100">
+      {/* Header */}
+      <div className="w-full max-w-2xl mx-auto px-4 pt-8 pb-4">
+        <div className="flex items-center justify-between">
+          <motion.span
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            className="text-xs text-earth-400 font-medium"
+          >
+            Insight 1 · Layer 2
+          </motion.span>
+          <AudioPlayer label="Listen" />
+        </div>
+      </div>
+
+      {/* Content */}
+      <div className="w-full max-w-2xl mx-auto px-4 pb-32">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+        >
+          {/* Title */}
+          <div className="text-center py-8">
+            <h1 className="text-3xl sm:text-4xl font-serif font-bold text-earth-900">
+              The Aha Moment
+            </h1>
+            <div className="mt-3 w-12 h-px bg-earth-300 mx-auto" />
+          </div>
+
+          {/* Markdown article */}
+          <div className="card-elevated">
+            <MarkdownRenderer content={content} />
+          </div>
+        </motion.div>
+      </div>
+
+      {/* Fixed Bottom Actions */}
+      <div className="fixed bottom-0 left-0 right-0 bg-gradient-to-t from-cream-50 via-cream-50 to-transparent pt-8 pb-8 px-4">
+        <div className="w-full max-w-2xl mx-auto flex flex-col sm:flex-row gap-3">
+          <Button
+            variant="secondary"
+            onClick={handlePracticeTracker}
+            className="flex-1"
+            size="lg"
+          >
+            Start Practice Tracker
+          </Button>
+          <Button
+            onClick={handleFullInsight}
+            className="flex-1"
+            size="lg"
+          >
+            Read Full Insight →
+          </Button>
+        </div>
+      </div>
+    </div>
+  );
+}
