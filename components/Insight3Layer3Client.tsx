@@ -6,17 +6,15 @@ import { Button } from "@/components/ui/button";
 import { AudioPlayer } from "@/components/AudioPlayer";
 import { MarkdownRenderer } from "@/components/MarkdownRenderer";
 import { BackButton } from "@/components/BackButton";
-import { updateProgress } from "@/lib/storage";
 
-interface Layer3ClientProps {
+interface Insight3Layer3ClientProps {
   content: string;
 }
 
-export function Layer3Client({ content }: Layer3ClientProps) {
+export function Insight3Layer3Client({ content }: Insight3Layer3ClientProps) {
   const router = useRouter();
 
   const handleComplete = () => {
-    updateProgress({ layer3Complete: true });
     router.push("/dashboard");
   };
 
@@ -24,14 +22,14 @@ export function Layer3Client({ content }: Layer3ClientProps) {
     <div className="min-h-screen bg-gradient-to-b from-cream-50 to-cream-100">
       {/* Header */}
       <div className="w-full max-w-2xl mx-auto px-4 pt-8 pb-4 space-y-2">
-        <BackButton href="/insight/layer-2" label="Back" />
+        <BackButton href="/insight-3/layer-2" label="Back" />
         <div className="flex items-center justify-between">
           <motion.span
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             className="text-xs text-earth-400 font-medium"
           >
-            Insight 1 · Layer 3 — Full Insight
+            Insight 3 · Layer 3 — Full Insight
           </motion.span>
           <AudioPlayer label="Listen" />
         </div>

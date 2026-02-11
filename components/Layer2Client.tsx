@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { AudioPlayer } from "@/components/AudioPlayer";
 import { MarkdownRenderer } from "@/components/MarkdownRenderer";
+import { BackButton } from "@/components/BackButton";
 import { updateProgress } from "@/lib/storage";
 
 interface Layer2ClientProps {
@@ -26,7 +27,8 @@ export function Layer2Client({ content }: Layer2ClientProps) {
   return (
     <div className="min-h-screen bg-gradient-to-b from-cream-50 to-cream-100">
       {/* Header */}
-      <div className="w-full max-w-2xl mx-auto px-4 pt-8 pb-4">
+      <div className="w-full max-w-2xl mx-auto px-4 pt-8 pb-4 space-y-2">
+        <BackButton href="/insight/layer-1" label="Back" />
         <div className="flex items-center justify-between">
           <motion.span
             initial={{ opacity: 0 }}

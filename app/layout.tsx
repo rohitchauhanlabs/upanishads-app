@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import { NavigationShell } from "@/components/NavigationShell";
 
 export const metadata: Metadata = {
   title: "Upanishadic Wisdom — Ancient Wisdom for Modern Anxiety",
@@ -15,7 +16,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className="min-h-screen bg-cream-50">
-        <main className="relative">{children}</main>
+        <NavigationShell>
+          <main className="relative">{children}</main>
+        </NavigationShell>
       </body>
     </html>
   );

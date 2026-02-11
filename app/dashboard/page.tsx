@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { ProgressBar } from "@/components/ProgressBar";
 import { getProgress, getPracticeEntries } from "@/lib/storage";
 import { UserProgress, PracticeEntry } from "@/lib/types";
+import { Check, ArrowRight, Lock } from "lucide-react";
 
 export default function DashboardPage() {
   const router = useRouter();
@@ -30,6 +31,41 @@ export default function DashboardPage() {
   const preyaCount = entries.filter((e) => e.choice === "preya").length;
   const totalEntries = entries.length;
 
+  // Determine the first uncompleted layer for Insight 1
+  const getInsight1NextRoute = () => {
+    if (!progress.layer1Complete) return "/insight/layer-1";
+    if (!progress.layer2Complete) return "/insight/layer-2";
+    if (!progress.layer3Complete) return "/insight/layer-3";
+    return "/insight/layer-1"; // All complete, revisit from start
+  };
+
+  // Layer state helper
+  type LayerState = "completed" | "current" | "locked";
+
+  const getLayerState = (layerIndex: number): LayerState => {
+    const layers = [
+      progress.layer1Complete,
+      progress.layer2Complete,
+      progress.layer3Complete,
+    ];
+    if (layers[layerIndex]) return "completed";
+    // Current = first uncompleted layer
+    const firstUncompleted = layers.findIndex((l) => !l);
+    if (layerIndex === firstUncompleted) return "current";
+    return "locked";
+  };
+
+  const getLayerRoute = (layerIndex: number): string => {
+    const routes = ["/insight/layer-1", "/insight/layer-2", "/insight/layer-3"];
+    return routes[layerIndex];
+  };
+
+  const layerLabels = [
+    "The Hook — 7 Cards",
+    "The Aha Moment",
+    "Full Insight",
+  ];
+
   return (
     <div className="min-h-screen bg-gradient-to-b from-cream-50 to-cream-100">
       {/* Header */}
@@ -49,77 +85,76 @@ export default function DashboardPage() {
       </div>
 
       <div className="w-full max-w-lg mx-auto px-4 py-4 space-y-4">
-        {/* Insight Progress Card */}
+        {/* Insight 1 Progress Card */}
         <motion.div
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.1 }}
-          className="card-elevated"
+          className="card-elevated cursor-pointer hover:shadow-lg transition-shadow"
+          onClick={() => router.push(getInsight1NextRoute())}
         >
-          <h3 className="font-serif font-semibold text-earth-800 mb-4">
+          {/* Clickable title */}
+          <h3 className="font-serif font-semibold text-earth-800 mb-4 hover:text-earth-600 transition-colors">
             Insight 1: Shreya vs. Preya
           </h3>
 
-          <div className="space-y-3">
-            {/* Layer 1 */}
-            <div className="flex items-center gap-3">
-              <div
-                className={`w-6 h-6 rounded-full flex items-center justify-center text-xs ${
-                  progress.layer1Complete
-                    ? "bg-sage-400 text-white"
-                    : "bg-earth-100 text-earth-400"
-                }`}
-              >
-                {progress.layer1Complete ? "✓" : "1"}
-              </div>
-              <span
-                className={`text-sm ${
-                  progress.layer1Complete ? "text-earth-700" : "text-earth-400"
-                }`}
-              >
-                The Hook — 7 Cards
-              </span>
-            </div>
-
-            {/* Layer 2 */}
-            <div className="flex items-center gap-3">
-              <div
-                className={`w-6 h-6 rounded-full flex items-center justify-center text-xs ${
-                  progress.layer2Complete
-                    ? "bg-sage-400 text-white"
-                    : "bg-earth-100 text-earth-400"
-                }`}
-              >
-                {progress.layer2Complete ? "✓" : "2"}
-              </div>
-              <span
-                className={`text-sm ${
-                  progress.layer2Complete ? "text-earth-700" : "text-earth-400"
-                }`}
-              >
-                The Aha Moment
-              </span>
-            </div>
-
-            {/* Layer 3 */}
-            <div className="flex items-center gap-3">
-              <div
-                className={`w-6 h-6 rounded-full flex items-center justify-center text-xs ${
-                  progress.layer3Complete
-                    ? "bg-sage-400 text-white"
-                    : "bg-earth-100 text-earth-400"
-                }`}
-              >
-                {progress.layer3Complete ? "✓" : "3"}
-              </div>
-              <span
-                className={`text-sm ${
-                  progress.layer3Complete ? "text-earth-700" : "text-earth-400"
-                }`}
-              >
-                Full Insight
-              </span>
-            </div>
+          <div className="space-y-2">
+            {layerLabels.map((label, index) => {
+              const state = getLayerState(index);
+              return (
+                <button
+                  key={index}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    if (state !== "locked") {
+                      router.push(getLayerRoute(index));
+                    }
+                  }}
+                  disabled={state === "locked"}
+                  className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-left transition-all duration-200 ${
+                    state === "completed"
+                      ? "bg-sage-50/60 hover:bg-sage-100/60"
+                      : state === "current"
+                      ? "bg-earth-50 hover:bg-earth-100/60 ring-1 ring-earth-200"
+                      : "opacity-50 cursor-not-allowed"
+                  }`}
+                >
+                  <div
+                    className={`w-6 h-6 rounded-full flex items-center justify-center shrink-0 ${
+                      state === "completed"
+                        ? "bg-sage-400 text-white"
+                        : state === "current"
+                        ? "bg-earth-600 text-white"
+                        : "bg-earth-100 text-earth-300"
+                    }`}
+                  >
+                    {state === "completed" ? (
+                      <Check className="w-3.5 h-3.5" />
+                    ) : state === "current" ? (
+                      <ArrowRight className="w-3.5 h-3.5" />
+                    ) : (
+                      <Lock className="w-3 h-3" />
+                    )}
+                  </div>
+                  <span
+                    className={`text-sm ${
+                      state === "completed"
+                        ? "text-earth-700"
+                        : state === "current"
+                        ? "text-earth-800 font-medium"
+                        : "text-earth-400"
+                    }`}
+                  >
+                    {label}
+                  </span>
+                  {state === "current" && (
+                    <span className="ml-auto text-xs text-earth-500 font-medium">
+                      Continue →
+                    </span>
+                  )}
+                </button>
+              );
+            })}
           </div>
 
           <div className="mt-4">
@@ -127,11 +162,63 @@ export default function DashboardPage() {
           </div>
         </motion.div>
 
-        {/* Practice Stats Card */}
+        {/* Insight 2 Card */}
+        <motion.div
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.15 }}
+          className="card-elevated cursor-pointer hover:shadow-lg transition-shadow"
+          onClick={() => router.push("/insight-2/intro")}
+        >
+          <div className="flex items-start justify-between">
+            <div>
+              <h3 className="font-serif font-semibold text-earth-800 hover:text-earth-600 transition-colors">
+                Insight 2: The Witness Self
+              </h3>
+              <p className="text-xs text-earth-400 mt-1">
+                Sakshi • Katha Upanishad
+              </p>
+            </div>
+            <span className="shrink-0 text-xs font-medium px-2.5 py-1 rounded-full bg-sage-100 text-sage-500">
+              Available
+            </span>
+          </div>
+          <p className="text-sm text-earth-500 mt-2">
+            Meet the part of you that never panics — the awareness behind your anxious thoughts.
+          </p>
+        </motion.div>
+
+        {/* Insight 3 Card */}
         <motion.div
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.2 }}
+          className="card-elevated cursor-pointer hover:shadow-lg transition-shadow"
+          onClick={() => router.push("/insight-3/intro")}
+        >
+          <div className="flex items-start justify-between">
+            <div>
+              <h3 className="font-serif font-semibold text-earth-800 hover:text-earth-600 transition-colors">
+                Insight 3: The Two Birds
+              </h3>
+              <p className="text-xs text-earth-400 mt-1">
+                Jiva & Atman • Mundaka Upanishad
+              </p>
+            </div>
+            <span className="shrink-0 text-xs font-medium px-2.5 py-1 rounded-full bg-sage-100 text-sage-500">
+              Available
+            </span>
+          </div>
+          <p className="text-sm text-earth-500 mt-2">
+            End imposter syndrome by discovering which bird you really are.
+          </p>
+        </motion.div>
+
+        {/* Practice Stats Card */}
+        <motion.div
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.25 }}
           className="card-elevated"
         >
           <h3 className="font-serif font-semibold text-earth-800 mb-4">
@@ -171,54 +258,6 @@ export default function DashboardPage() {
             className="w-full mt-4"
           >
             {totalEntries === 0 ? "Start Tracking" : "Log a Moment"}
-          </Button>
-        </motion.div>
-
-        {/* Next Insight Card */}
-        <motion.div
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.3 }}
-          className="card-elevated text-center"
-        >
-          <h3 className="font-serif font-semibold text-earth-800 mb-2">
-            Next Insight
-          </h3>
-          <p className="text-sm text-earth-400 mb-4">
-            More teachings are coming soon. Continue practicing with Insight 1.
-          </p>
-          <Button disabled variant="outline" className="w-full">
-            Coming Soon
-          </Button>
-        </motion.div>
-
-        {/* Quick Actions */}
-        <motion.div
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.4 }}
-          className="flex gap-3 pt-2 pb-8"
-        >
-          <Button
-            variant="ghost"
-            onClick={() => router.push("/insight/layer-1")}
-            className="flex-1 text-xs"
-          >
-            Revisit Layer 1
-          </Button>
-          <Button
-            variant="ghost"
-            onClick={() => router.push("/insight/layer-2")}
-            className="flex-1 text-xs"
-          >
-            Revisit Layer 2
-          </Button>
-          <Button
-            variant="ghost"
-            onClick={() => router.push("/insight/layer-3")}
-            className="flex-1 text-xs"
-          >
-            Revisit Layer 3
           </Button>
         </motion.div>
       </div>

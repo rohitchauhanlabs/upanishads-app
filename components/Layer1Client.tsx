@@ -7,6 +7,7 @@ import { SwipeableCard } from "@/components/SwipeableCard";
 import { AudioPlayer } from "@/components/AudioPlayer";
 import { Button } from "@/components/ui/button";
 import { updateProgress } from "@/lib/storage";
+import { BackButton } from "@/components/BackButton";
 import { InsightCard } from "@/lib/types";
 
 interface Layer1ClientProps {
@@ -51,15 +52,18 @@ export function Layer1Client({ cards }: Layer1ClientProps) {
   return (
     <div className="min-h-screen flex flex-col bg-gradient-to-b from-cream-50 to-cream-100">
       {/* Header */}
-      <div className="w-full max-w-lg mx-auto px-4 pt-6 pb-2 flex items-center justify-between">
-        <motion.span
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          className="text-xs text-earth-400 font-medium"
-        >
-          Insight 1 · Layer 1
-        </motion.span>
-        <AudioPlayer label="Listen" />
+      <div className="w-full max-w-lg mx-auto px-4 pt-6 pb-2 space-y-2">
+        <BackButton href="/dashboard" label="Back" />
+        <div className="flex items-center justify-between">
+          <motion.span
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            className="text-xs text-earth-400 font-medium"
+          >
+            Insight 1 · Layer 1
+          </motion.span>
+          <AudioPlayer label="Listen" />
+        </div>
       </div>
 
       {/* Cards Area */}

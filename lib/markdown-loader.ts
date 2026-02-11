@@ -137,3 +137,124 @@ export function getLayer3Content(): string {
 
   return raw.trim();
 }
+
+// ─────────────────────────────────────────────────────────
+// INSIGHT #2: The Witness Self
+// ─────────────────────────────────────────────────────────
+
+/**
+ * Get Insight 2 intro content — single-page format (not cards).
+ * Returns the full markdown as-is since it's already clean user-facing content.
+ */
+export function getInsight2IntroContent(): string {
+  const raw = readMarkdownFile("insight-2-intro.md");
+  if (!raw) return "";
+
+  return raw.trim();
+}
+
+/**
+ * Get Insight 2 Layer 2 markdown content.
+ * Strips metadata and technical sections, keeping only reader-facing content.
+ */
+export function getInsight2Layer2Content(): string {
+  const raw = readMarkdownFile("insight-2-layer-2.md");
+  if (!raw) return "";
+
+  let content = raw;
+
+  // Find the start of real content
+  const firstSectionMatch = content.match(/\n(## The Storm Inside)/);
+  if (firstSectionMatch && firstSectionMatch.index !== undefined) {
+    content = content.substring(firstSectionMatch.index).trim();
+  }
+
+  // Cut off before Technical Implementation
+  const techImplIndex = content.indexOf("## **Technical Implementation");
+  if (techImplIndex !== -1) {
+    content = content.substring(0, techImplIndex).trim();
+  }
+
+  // Strip ASCII-art button boxes
+  content = content.replace(/┌[\s\S]*?┘/g, "").trim();
+
+  // Remove trailing metadata
+  const wordCountIndex = content.indexOf("**Word count:**");
+  if (wordCountIndex !== -1) {
+    content = content.substring(0, wordCountIndex).trim();
+  }
+
+  // Strip "Your Move" section (we have real buttons)
+  const yourMoveIndex = content.indexOf("## Your Move");
+  if (yourMoveIndex !== -1) {
+    content = content.substring(0, yourMoveIndex).trim();
+  }
+
+  // Clean up trailing "---"
+  content = content.replace(/\n---\s*$/, "").trim();
+
+  return content;
+}
+
+/**
+ * Get Insight 2 Layer 3 markdown content — full wisdom article.
+ */
+export function getInsight2Layer3Content(): string {
+  const raw = readMarkdownFile("insight-2-layer-3.md");
+  if (!raw) return "";
+
+  return raw.trim();
+}
+
+// ─────────────────────────────────────────────────────────
+// INSIGHT #3: The Two Birds
+// ─────────────────────────────────────────────────────────
+
+/**
+ * Get Insight 3 intro content — single-page format (not cards).
+ * Returns the full markdown as-is since it's already clean user-facing content.
+ */
+export function getInsight3IntroContent(): string {
+  const raw = readMarkdownFile("insight-3-intro.md");
+  if (!raw) return "";
+
+  return raw.trim();
+}
+
+/**
+ * Get Insight 3 Layer 2 markdown content.
+ * Already clean user-facing content, minimal stripping needed.
+ */
+export function getInsight3Layer2Content(): string {
+  const raw = readMarkdownFile("insight-3-layer-2.md");
+  if (!raw) return "";
+
+  let content = raw;
+
+  // Find the start of real content
+  const firstSectionMatch = content.match(/\n(## The Dinner Party)/);
+  if (firstSectionMatch && firstSectionMatch.index !== undefined) {
+    content = content.substring(firstSectionMatch.index).trim();
+  }
+
+  // Strip "Your Move" section (we have real buttons)
+  const yourMoveIndex = content.indexOf("## Your Move");
+  if (yourMoveIndex !== -1) {
+    content = content.substring(0, yourMoveIndex).trim();
+  }
+
+  // Clean up trailing "---"
+  content = content.replace(/\n---\s*$/, "").trim();
+
+  return content;
+}
+
+/**
+ * Get Insight 3 Layer 3 markdown content — full wisdom article.
+ */
+export function getInsight3Layer3Content(): string {
+  const raw = readMarkdownFile("insight-3-layer-3.md");
+  if (!raw) return "";
+
+  return raw.trim();
+}

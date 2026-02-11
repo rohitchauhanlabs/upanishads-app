@@ -6,32 +6,30 @@ import { Button } from "@/components/ui/button";
 import { AudioPlayer } from "@/components/AudioPlayer";
 import { MarkdownRenderer } from "@/components/MarkdownRenderer";
 import { BackButton } from "@/components/BackButton";
-import { updateProgress } from "@/lib/storage";
 
-interface Layer3ClientProps {
+interface Insight2IntroClientProps {
   content: string;
 }
 
-export function Layer3Client({ content }: Layer3ClientProps) {
+export function Insight2IntroClient({ content }: Insight2IntroClientProps) {
   const router = useRouter();
 
-  const handleComplete = () => {
-    updateProgress({ layer3Complete: true });
-    router.push("/dashboard");
+  const handleBegin = () => {
+    router.push("/insight-2/layer-2");
   };
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-cream-50 to-cream-100">
       {/* Header */}
       <div className="w-full max-w-2xl mx-auto px-4 pt-8 pb-4 space-y-2">
-        <BackButton href="/insight/layer-2" label="Back" />
+        <BackButton href="/dashboard" label="Back" />
         <div className="flex items-center justify-between">
           <motion.span
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             className="text-xs text-earth-400 font-medium"
           >
-            Insight 1 · Layer 3 — Full Insight
+            Insight 2 · Intro
           </motion.span>
           <AudioPlayer label="Listen" />
         </div>
@@ -48,24 +46,14 @@ export function Layer3Client({ content }: Layer3ClientProps) {
           <div className="card-elevated">
             <MarkdownRenderer content={content} />
           </div>
-
-          {/* Closing ornament */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.3, duration: 0.8 }}
-            className="text-center py-8"
-          >
-            <div className="w-16 h-px bg-earth-300 mx-auto" />
-          </motion.div>
         </motion.div>
       </div>
 
       {/* Fixed Bottom */}
       <div className="fixed bottom-0 left-0 right-0 bg-gradient-to-t from-cream-50 via-cream-50 to-transparent pt-8 pb-8 px-4">
         <div className="w-full max-w-2xl mx-auto">
-          <Button onClick={handleComplete} className="w-full" size="lg">
-            Complete Insight →
+          <Button onClick={handleBegin} className="w-full" size="lg">
+            Begin This Teaching →
           </Button>
         </div>
       </div>

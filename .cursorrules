@@ -1,0 +1,56 @@
+# UPANISHADS WISDOM APP - AI CODING GUIDELINES
+
+## PROJECT CONTEXT
+Name: Upanishads Wisdom App
+Purpose: Anxiety-relief through ancient Upanishadic wisdom (ages 15-40)
+Stack: Next.js 14 (App Router), TypeScript, Tailwind CSS
+Status: MVP complete, shipping today
+
+## CODE STYLE
+
+### React/Next.js
+- Server components by default
+- Client components only when needed ("use client")
+- TypeScript strict mode
+- Functional components only
+
+### Tailwind CSS
+- Custom colors: Sage green #A8B5A0, Warm cream #F5F1E8, Earth brown #8B7355
+- Mobile-first responsive design
+
+### File Naming
+- Components: PascalCase (InsightCard.tsx)
+- Pages: lowercase with hyphens (insight-1/page.tsx)
+- Content: kebab-case (insight-1-intro.md)
+
+## CONTENT GUIDELINES
+
+### Tone & Voice
+- Warm friend, not guru
+- Modern language, ancient wisdom
+- No jargon without explanation
+
+### Sanskrit Terms
+- Always include Devanagari: *Term* (देवनागरी)
+- Provide English translation immediately
+
+### Source Citations
+- All quotes from Eknath Easwaran translations
+- Format: "Katha Upanishad I.2.1-2 (Easwaran)"
+
+## UX PRINCIPLES
+
+- Logo clicks to Dashboard
+- Back buttons go to Insights Library
+- Entire cards clickable
+- Time expectations visible (2 min, 3 min, 10 min)
+
+## PHILOSOPHY
+
+- Ship fast, learn fast, iterate
+- Validate before scaling
+- Quality > quantity
+
+---
+
+END OF .CURSORRULES

@@ -6,6 +6,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { getPracticeEntries, savePracticeEntry } from "@/lib/storage";
+import { BackButton } from "@/components/BackButton";
 import { PracticeEntry } from "@/lib/types";
 
 export default function PracticeTrackerPage() {
@@ -50,12 +51,9 @@ export default function PracticeTrackerPage() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
         >
-          <button
-            onClick={() => router.push("/insight/layer-2")}
-            className="text-sm text-earth-400 hover:text-earth-600 transition-colors mb-4 block"
-          >
-            ← Back to Insight
-          </button>
+          <div className="mb-4">
+            <BackButton href="/insight/layer-2" label="Back to Insight" />
+          </div>
           <h1 className="text-2xl sm:text-3xl font-serif font-bold text-earth-900">
             Practice Tracker
           </h1>

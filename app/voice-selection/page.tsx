@@ -6,6 +6,7 @@ import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { AudioPlayer } from "@/components/AudioPlayer";
 import { VOICE_OPTIONS } from "@/lib/constants";
+import { BackButton } from "@/components/BackButton";
 import { saveSelectedVoice } from "@/lib/storage";
 
 export default function VoiceSelectionPage() {
@@ -28,6 +29,9 @@ export default function VoiceSelectionPage() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
         >
+          <div className="mb-4">
+            <BackButton href="/onboarding" label="Back" />
+          </div>
           <h1 className="text-2xl sm:text-3xl font-serif font-bold text-earth-900">
             Choose Your Guide
           </h1>
