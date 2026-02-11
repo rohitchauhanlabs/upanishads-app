@@ -22,7 +22,7 @@ export function Insight3Layer3Client({ content }: Insight3Layer3ClientProps) {
     <div className="min-h-screen bg-gradient-to-b from-cream-50 to-cream-100">
       {/* Header */}
       <div className="w-full max-w-2xl mx-auto px-4 pt-8 pb-4 space-y-2">
-        <BackButton href="/insight-3/layer-2" label="Back" />
+        <BackButton href="/insights" label="Back" />
         <div className="flex items-center justify-between">
           <motion.span
             initial={{ opacity: 0 }}

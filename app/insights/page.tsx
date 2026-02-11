@@ -34,7 +34,7 @@ export default function InsightsPage() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.1 }}
           className="card-elevated cursor-pointer hover:shadow-lg transition-shadow"
-          onClick={() => router.push("/insight/layer-1")}
+          onClick={() => router.push("/insight-1/intro")}
         >
           <div className="flex items-start justify-between">
             <div>
@@ -59,7 +59,7 @@ export default function InsightsPage() {
               size="sm"
               onClick={(e) => {
                 e.stopPropagation();
-                router.push("/insight/layer-1");
+                router.push("/insight-1/intro");
               }}
               className="text-xs"
             >

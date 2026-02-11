@@ -53,7 +53,7 @@ export function Layer1Client({ cards }: Layer1ClientProps) {
     <div className="min-h-screen flex flex-col bg-gradient-to-b from-cream-50 to-cream-100">
       {/* Header */}
       <div className="w-full max-w-lg mx-auto px-4 pt-6 pb-2 space-y-2">
-        <BackButton href="/dashboard" label="Back" />
+        <BackButton href="/insights" label="Back" />
         <div className="flex items-center justify-between">
           <motion.span
             initial={{ opacity: 0 }}

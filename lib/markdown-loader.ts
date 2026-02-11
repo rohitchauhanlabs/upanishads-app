@@ -139,6 +139,21 @@ export function getLayer3Content(): string {
 }
 
 // ─────────────────────────────────────────────────────────
+// INSIGHT #1: Shreya vs. Preya — Intro (single-page format)
+// ─────────────────────────────────────────────────────────
+
+/**
+ * Get Insight 1 intro content — single-page format (not cards).
+ * Returns the full markdown as-is since it's already clean user-facing content.
+ */
+export function getInsight1IntroContent(): string {
+  const raw = readMarkdownFile("insight-1-intro.md");
+  if (!raw) return "";
+
+  return raw.trim();
+}
+
+// ─────────────────────────────────────────────────────────
 // INSIGHT #2: The Witness Self
 // ─────────────────────────────────────────────────────────
 

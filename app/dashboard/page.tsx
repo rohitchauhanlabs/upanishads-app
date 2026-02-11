@@ -33,10 +33,10 @@ export default function DashboardPage() {
 
   // Determine the first uncompleted layer for Insight 1
   const getInsight1NextRoute = () => {
-    if (!progress.layer1Complete) return "/insight/layer-1";
+    if (!progress.layer1Complete) return "/insight-1/intro";
     if (!progress.layer2Complete) return "/insight/layer-2";
     if (!progress.layer3Complete) return "/insight/layer-3";
-    return "/insight/layer-1"; // All complete, revisit from start
+    return "/insight-1/intro"; // All complete, revisit from start
   };
 
   // Layer state helper
@@ -56,12 +56,12 @@ export default function DashboardPage() {
   };
 
   const getLayerRoute = (layerIndex: number): string => {
-    const routes = ["/insight/layer-1", "/insight/layer-2", "/insight/layer-3"];
+    const routes = ["/insight-1/intro", "/insight/layer-2", "/insight/layer-3"];
     return routes[layerIndex];
   };
 
   const layerLabels = [
-    "The Hook — 7 Cards",
+    "Introduction",
     "The Aha Moment",
     "Full Insight",
   ];

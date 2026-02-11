@@ -7,14 +7,19 @@ import { ChevronRight, Home } from "lucide-react";
 
 // Only show breadcrumbs on insight-related pages and practice tracker
 const BREADCRUMB_MAP: Record<string, { label: string; href: string }[]> = {
+  "/insight-1/intro": [
+    { label: "Dashboard", href: "/dashboard" },
+    { label: "Insight #1", href: "/insights" },
+    { label: "Intro — Shreya vs. Preya", href: "/insight-1/intro" },
+  ],
   "/insight/layer-1": [
     { label: "Dashboard", href: "/dashboard" },
-    { label: "Insight #1", href: "/dashboard" },
+    { label: "Insight #1", href: "/insights" },
     { label: "Layer 1 — The Hook", href: "/insight/layer-1" },
   ],
   "/insight/layer-2": [
     { label: "Dashboard", href: "/dashboard" },
-    { label: "Insight #1", href: "/dashboard" },
+    { label: "Insight #1", href: "/insights" },
     { label: "Layer 2 — The Aha Moment", href: "/insight/layer-2" },
   ],
   "/insight/layer-3": [
